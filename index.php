@@ -41,8 +41,10 @@ $hotels = [
 ];
 
 $vote = isset($_GET['vote']) ? $_GET['vote'] : 0;
+$parcheggio = isset($_GET['parcheggio']) ? $_GET['parcheggio'] : false;
 
 var_dump($vote);
+var_dump($parcheggio);
 
 ?>
 
@@ -73,7 +75,8 @@ var_dump($vote);
     <div class="container d-flex justify-content-center mt-5">
         <form action="./index.php" method="get">
 
-            <!-- <input type="checkbox" name="parcheggio" placeholder="Seleziona se vuoi parcheggio"> -->
+            <label for="park">Parcheggio</label>
+            <input type="checkbox" name="parcheggio" placeholder="Seleziona se vuoi parcheggio">
             <label for="cars">Scegli un ranking</label>
             <select name="vote">
                 <option value="1">1</option>
@@ -107,7 +110,7 @@ var_dump($vote);
 
                 foreach ($hotels as $hotel) {
 
-                    if ($hotel['vote'] <= $vote) {
+                    if ($hotel['vote'] >= $vote && $hotel['parking'] == $parcheggio) { // Controllo se il voto è maggiore o uguale a quello selezionato e se il parcheggio è richiesto
                         echo "<tr>";
                         echo "<td>" . $hotel['name'] . "</td>";
                         echo "<td>" . $hotel['description'] . "</td>";
